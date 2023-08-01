@@ -3,6 +3,17 @@ import tkinter
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
+def save():
+
+    website = website_entry.get()
+    email = username_entry.get()
+    password = password_entry.get()
+
+    with open('data.txt', 'a') as data_file:
+        data_file.write(f"{website} | {email} | {password}\n")
+        website_entry.delete(0, tkinter.END)
+        password_entry.delete(0, tkinter.END)
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = tkinter.Tk()
@@ -19,12 +30,14 @@ website_label.grid(column=0, row=1)
 
 website_entry = tkinter.Entry(width=35)
 website_entry.grid(column=1, row=1, columnspan=2)
+website_entry.focus()
 
 username_label = tkinter.Label(text='Email/Username:', fg='black', bg='white')
 username_label.grid(column=0, row=2)
 
 username_entry = tkinter.Entry(width=35)
 username_entry.grid(column=1, row=2, columnspan=2)
+username_entry.insert(0, 'jakub_pikula@gmail.com')
 
 password_label = tkinter.Label(text='Password:', fg='black', bg='white')
 password_label.grid(column=0, row=3)
@@ -35,7 +48,7 @@ password_entry.grid(column=1, row=3)
 generate_password_button = tkinter.Button(text='Generate Password')
 generate_password_button.grid(column=2, row=3)
 
-add_button = tkinter.Button(text='Add', width=36)
+add_button = tkinter.Button(text='Add', width=36, command=save)
 add_button.grid(column=1, row=4, columnspan=2)
 
 window.mainloop()
